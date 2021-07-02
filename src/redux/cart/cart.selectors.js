@@ -9,7 +9,12 @@ export const selectCartItems = createSelector(
     [selectCart],
     // second arg is function that will return the value we want out of the selectors
     cart => cart.cartItems
-)
+);
+
+export const selectCartHidden = createSelector(
+    [selectCart],
+    cart => cart.hidden
+);
 
 export const selectCartItemsCount = createSelector(
     [selectCartItems],
