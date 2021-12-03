@@ -1,10 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 import CollectionPage from '../collection/collection.component';
 
 import { firestore, convertCollectionSnapshotToMap } from '../../firebase/firebase.utils';
+
+import { updateCollections } from '../../redux/shop/shop.actions';
 
 /* We have access to the object `match` here bc in App.js, our /shop page
 is nested in a route, and <Route/> automatically passes the 3 objects
@@ -17,6 +20,7 @@ class ShopPage extends React.Component {
   unsubscribeFromSnapshot = null;
 
   componentDidMount() {
+    const { updateCollections } = this.props;
     /* 'collections' is the name of our collections */
     const collectionRef = firestore.collection('collections');
 
@@ -25,7 +29,8 @@ class ShopPage extends React.Component {
     array at the time this code renders. We'll want to perform some async requests bc the data is 
     on the actual objects inside the snapshot.  */
     collectionRef.onSnapshot(async snapshot => {
-      convertCollectionSnapshotToMap(snapshot);
+      const collectionsMap = convertCollectionSnapshotToMap(snapshot);
+      updateCollections(collectionsMap);
     });
   }
 
@@ -40,7 +45,14 @@ class ShopPage extends React.Component {
   }
 }
 
-export default ShopPage;
+const mapDispatchToProps = dispatch => ({
+  updateCollections: collectionsMap => dispatch(updateCollections(collectionsMap))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ShopPage);
 
 /*
 { collections.map(({id, ...otherCollectionProps}) => (
