@@ -17,6 +17,7 @@ import { selectCurrentUser } from './redux/user/user.selectors';
 
 
 class App extends React.Component {
+  /* we have to unsubscribe when we unmount */
   unsubscribeFromAuth = null;
 
   componentDidMount() {
@@ -34,11 +35,17 @@ class App extends React.Component {
         });
       }
 
-      setCurrentUser(userAuth );
+      setCurrentUser(userAuth);
+      /* collectionsArray holds values we don't want in our db, such as routeName and id (bc we're asking Firebase to 
+      generate them for us), so instead of passing full array, we're gonna pass in a new array where we get the 
+      object and destructure off of it just the properties we want (the `title` and `items`), 
+      and then we'll return a new object  */
+      // addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items})));
     });
   }
 
   componentWillUnmount () {
+      /* we have to unsubscribe when we unmount */
     this.unsubscribeFromAuth();
   }
 
@@ -60,7 +67,7 @@ class App extends React.Component {
           />
         </Switch>
       </div>
-      );
+    );
   }
 }
 
@@ -68,7 +75,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
-})
+});
 
 /* 
 function that gets dispatch property, & returns an object where 
