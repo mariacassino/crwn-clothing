@@ -1,6 +1,7 @@
 import ShopActionTypes from "./shop.types";
 
-import {firestore, convertCollectionSnapshotToMap} from '../../firebase/firebase.utils';
+import {firestore, convertCollectionsSnapshotToMap} from '../../firebase/firebase.utils';
+
 
 export const fetchCollectionsStart = () => ({
     type: ShopActionTypes.FETCH_COLLECTIONS_START,
@@ -26,7 +27,7 @@ export const fetchCollectionsStartAsync = () => {
         array at the time this code renders. We'll want to perform some async requests bc the data is 
         on the actual objects inside the snapshot.  */
         collectionRef.get().then(snapshot => {
-            const collectionsMap = convertCollectionSnapshotToMap(snapshot);
+            const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
             dispatch(fetchCollectionsSuccess(collectionsMap));
         }).catch(error => dispatch(fetchCollectionsFailure(error.message)));
     }

@@ -67,7 +67,7 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 };
 
 /* convert `collections` snapshot from array to object */
-export const convertCollectionSnapshotToMap = (collections) => {
+export const convertCollectionsSnapshotToMap = (collections) => {
   /* `collection.docs` will give us the querySnapshot array. We map over it and for each document object (`doc`) 
   in the array we collect the title and items properties from the data  */
   const transformedCollection = collections.docs.map(doc => {

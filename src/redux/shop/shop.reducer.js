@@ -12,7 +12,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isFetching: true
-            }
+            };
         case ShopActionTypes.FETCH_COLLECTIONS_SUCCESS: 
             return {
                 ...state, 
@@ -25,7 +25,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 isFetching: false,
                 /* the payload we'll be passing through is the error message string */
                 errorMessage: action.payload
-            }
+            };
         default:
             return state;
     }

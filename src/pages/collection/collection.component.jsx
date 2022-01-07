@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 /* component that displays our items */
 import CollectionItem from '../../components/collection-item/collection-item.component';
@@ -8,9 +10,12 @@ import { selectCollection } from '../../redux/shop/shop.selectors';
 
 import './collection.styles.scss';
 
+
 const CollectionPage = ({collection}) => {
+    const {params} = useParams(); 
     /* destructure off title & items properties off collection */
     const { title, items } = collection;
+    // const collection = useSelector(selectCollection(params.collectionId));
     return (
         <div className='collection-page'>
             <h2 className='title'>{ title }</h2>
