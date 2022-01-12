@@ -1,6 +1,5 @@
 import { createSelector } from "reselect";
 // import memoize from 'lodash.memoize';
-import {Link, useParams} from 'react-router-dom';
 
 const selectShop = state => state.shop;
 
